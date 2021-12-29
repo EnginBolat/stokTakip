@@ -1,7 +1,7 @@
 # Stok Takip Programı
 
-
-[![Everything Is AWESOME](https://i.ytimg.com/vi/8R4iVh5XwPE/mqdefault.jpg)](https://youtu.be/8R4iVh5XwPE)
+<p>C# ve MSSQL kullanarak hazır bir stok takip otomasyonu.Program şuanda hazır fakat optimize etmeye çalışıyoum.İlerleyen güncellemelerde Barkod okuyucu sayesinde barkodları direkt olarak ekleme özelliği gelecek.</p>
+<p>Programın çalışır halde bulunan [Youtube Videosu](https://youtu.be/8R4iVh5XwPE "link title")</p>
 
 
 ## Giriş Ekranı
