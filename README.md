@@ -33,7 +33,7 @@ https://youtu.be/8R4iVh5XwPE
 ![image](https://github.com/EnginBolatt/stokTakip/blob/main/ekranFotograflari/urunListeleme.png)
 
 ## Satış İşlemi
-![image](https://github.com/EnginBolatt/stokTakip/blob/main/ekranFotograflari/satisSayfasi.png)
+![image](https://github.com/EnginBolatt/stokTakip/blob/main/ekranFotograflari/satisSayfasis.png)
 
 ## Satış Listele
 ![image](https://github.com/EnginBolatt/stokTakip/blob/main/ekranFotograflari/satisListele.png)
