@@ -9,7 +9,7 @@ https://youtu.be/8R4iVh5XwPE
 ![image](https://github.com/EnginBolatt/stokTakip/blob/main/ekranFotograflari/girisEkrani.png)
 
 ## Arayüz
-![image](https://github.com/EnginBolatt/stokTakip/blob/main/ekranFotograflari/Lobi1.png)
+![image](https://github.com/EnginBolatt/stokTakip/blob/main/ekranFotograflari/Lobi1.jpg)
 
 ## Müşteri Ekle
 ![image](https://github.com/EnginBolatt/stokTakip/blob/main/ekranFotograflari/musteriEkle.png)
