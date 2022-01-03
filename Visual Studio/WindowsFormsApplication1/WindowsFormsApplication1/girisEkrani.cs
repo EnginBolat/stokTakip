@@ -18,6 +18,37 @@ namespace WindowsFormsApplication1
             InitializeComponent();
         }
 
+        
+        bool durum = false;
+        baglantiSinifi bgl = new baglantiSinifi();
+        SqlConnection baglanti;
+        void BaglantiAc()
+        {
+            if (durum==false)
+            {
+                baglanti = new SqlConnection(bgl.baglantiAdresi);
+                baglanti.Open();
+                durum = true;
+            }
+            else
+            {
+                MessageBox.Show("Bağlantı Zaten Açık");
+            }
+        }
+        void BaglantiKapat()
+        {
+            if (durum == true)
+            {
+                baglanti.Close();
+                durum = false;
+            }
+            else
+            {
+                MessageBox.Show("Bağlantı Zaten Kapalı");
+            }
+        }
+
+
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked==true)
@@ -35,12 +66,13 @@ namespace WindowsFormsApplication1
         {
             textBox2.PasswordChar = '*';
         }
-        SqlConnection baglanti = new SqlConnection("SQLCONNECTIONSTRING");
+        
         private void button1_Click(object sender, EventArgs e)
         {
+            
             try
             {
-                baglanti.Open();
+                BaglantiAc();
                 try
                 {
                     string sorgu = ("select * from kayitli where kadi=@ad AND şifre=@sifre");
@@ -57,7 +89,6 @@ namespace WindowsFormsApplication1
                         lobby gec = new lobby();
                         gec.Show();
                         this.Hide();
-                        MessageBox.Show("Başarıyla Giriş Yapıldı Hoşgeldiniz.");
                     }
                     else
                     {
@@ -79,7 +110,7 @@ namespace WindowsFormsApplication1
                 textBox1.Text = "";
                 textBox2.Text = "";            
             }
-            
+            BaglantiKapat();
 
         }
     }

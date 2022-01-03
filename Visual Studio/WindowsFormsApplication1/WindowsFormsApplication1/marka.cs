@@ -16,13 +16,43 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
         }
-        SqlConnection baglanti = new SqlConnection("SQLCONNECTIONSTRING");
-        private void button1_Click(object sender, EventArgs e)
-        {      
+        bool baglantiDurum = false;
+        baglantiSinifi bgl = new baglantiSinifi();
+        SqlConnection baglanti;
+        void BaglantiAc()
+        {
+            if (baglantiDurum == false)
+            {
+                baglanti = new SqlConnection(bgl.baglantiAdresi);
                 baglanti.Open();
-                SqlCommand komut = new SqlCommand("insert into markabilgileri(kategori,marka) values ('" + comboBox1.Text + "','" + textBox1.Text + "')", baglanti);
+                baglantiDurum = true;
+            }
+            else
+            {
+                MessageBox.Show("Bağlantı Zaten Açık");
+            }
+        }
+        void BaglantiKapat()
+        {
+            if (baglantiDurum == true)
+            {
+                baglanti.Close();
+                baglantiDurum = false;
+            }
+            else
+            {
+                MessageBox.Show("Bağlantı Zaten Kapalı");
+            }
+        }
+
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            BaglantiAc();
+            SqlCommand komut = new SqlCommand("insert into markabilgileri(kategori,marka) values ('" + comboBox1.Text + "','" + textBox1.Text + "')", baglanti);
                 komut.ExecuteNonQuery();
-                baglanti.Close();  
+            BaglantiKapat();
                 MessageBox.Show("Marka Başarıyla Eklendi");
      textBox1.Text = "";
             comboBox1.Text = "";
@@ -35,7 +65,7 @@ namespace WindowsFormsApplication1
 
         private void kategorigetir()
         {
-            baglanti.Open();
+            BaglantiAc();
             SqlCommand komut = new SqlCommand("select * from kategoribilgileri", baglanti);
             SqlDataReader read = komut.ExecuteReader();
             while (read.Read())
@@ -43,7 +73,7 @@ namespace WindowsFormsApplication1
                 comboBox1.Items.Add(read["kategori"].ToString());
 
             }
-            baglanti.Close();
+            BaglantiKapat();
         }
     }
 }

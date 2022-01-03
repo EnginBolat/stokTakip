@@ -17,12 +17,38 @@ namespace WindowsFormsApplication1
             InitializeComponent();
         }
 
-        SqlConnection baglanti = new SqlConnection("SQLCONNECTIONSTRING");
         bool durum;
+        baglantiSinifi bgl = new baglantiSinifi();
+        SqlConnection baglanti;
+        void BaglantiAc()
+        {
+            if (durum == false)
+            {
+                baglanti = new SqlConnection(bgl.baglantiAdresi);
+                baglanti.Open();
+                durum = true;
+            }
+            else
+            {
+                MessageBox.Show("Bağlantı Zaten Açık");
+            }
+        }
+        void BaglantiKapat()
+        {
+            if (durum == true)
+            {
+                baglanti.Close();
+                durum = false;
+            }
+            else
+            {
+                MessageBox.Show("Bağlantı Zaten Kapalı");
+            }
+        }
         private void kategoriengelle()
-    {
+        {
             durum = true;
-            baglanti.Open();
+            BaglantiAc();
             SqlCommand komut = new SqlCommand("select * from kategoribilgileri",baglanti);
             SqlDataReader read = komut.ExecuteReader();
             while (read.Read())
@@ -32,16 +58,16 @@ namespace WindowsFormsApplication1
                     durum = false;
                 }
             }
+            BaglantiKapat();
 
     }
         private void button1_Click(object sender, EventArgs e)
         {
-        
-                baglanti.Open();
-                SqlCommand komut = new SqlCommand("insert into kategoribilgileri(kategori) values ('" + textBox1.Text + "')", baglanti);
-                komut.ExecuteNonQuery();
-                baglanti.Close();      
-                MessageBox.Show("Kategori Başarıyla Eklendi");         
+            BaglantiAc();
+            SqlCommand komut = new SqlCommand("insert into kategoribilgileri(kategori) values ('" + textBox1.Text + "')", baglanti);
+            komut.ExecuteNonQuery();
+            BaglantiKapat();     
+            MessageBox.Show("Kategori Başarıyla Eklendi");         
             textBox1.Text = "";
         }
 

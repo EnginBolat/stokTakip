@@ -16,7 +16,38 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
         }
-        SqlConnection baglanti = new SqlConnection("SQLCONNECTIONSTRING");
+
+        bool baglantiDurum = false;
+        baglantiSinifi bgl = new baglantiSinifi();
+        SqlConnection baglanti;
+        void BaglantiAc()
+        {
+            if (baglantiDurum == false)
+            {
+                baglanti = new SqlConnection(bgl.baglantiAdresi);
+                baglanti.Open();
+                baglantiDurum = true;
+            }
+            else
+            {
+                MessageBox.Show("Bağlantı Zaten Açık");
+            }
+        }
+        void BaglantiKapat()
+        {
+            if (baglantiDurum == true)
+            {
+                baglanti.Close();
+                baglantiDurum = false;
+            }
+            else
+            {
+                MessageBox.Show("Bağlantı Zaten Kapalı");
+            }
+        }
+
+
+
         private void Musteriekle_Load(object sender, EventArgs e)
         {
 
@@ -36,7 +67,7 @@ namespace WindowsFormsApplication1
 
                     else
                     {
-                        baglanti.Open();
+                        BaglantiAc();
                         SqlCommand komut = new SqlCommand("insert into kayitedilecek(tc,adsoyad,tel,adres,email) values (@tc,@adsoyad,@tel,@adres,@email)", baglanti);
                         komut.Parameters.AddWithValue("@tc", txttc.Text);
                         komut.Parameters.AddWithValue("@adsoyad", txtad.Text);
@@ -44,7 +75,7 @@ namespace WindowsFormsApplication1
                         komut.Parameters.AddWithValue("@adres", txtadres.Text);
                         komut.Parameters.AddWithValue("@email", txtemail.Text);
                         komut.ExecuteNonQuery();
-                        baglanti.Close();
+                        BaglantiKapat();
                         MessageBox.Show("Müşteri Kaydı Eklendi");
                     }
                 }

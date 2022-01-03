@@ -16,8 +16,38 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
         }
-        SqlConnection baglanti = new SqlConnection("SQLCONNECTIONSTRING");
         DataSet daset = new DataSet();
+        bool baglantiDurum = false;
+        baglantiSinifi bgl = new baglantiSinifi();
+        SqlConnection baglanti;
+        void BaglantiAc()
+        {
+            if (baglantiDurum == false)
+            {
+                baglanti = new SqlConnection(bgl.baglantiAdresi);
+                baglanti.Open();
+                baglantiDurum = true;
+            }
+            else
+            {
+                MessageBox.Show("Bağlantı Zaten Açık");
+            }
+        }
+        void BaglantiKapat()
+        {
+            if (baglantiDurum == true)
+            {
+                baglanti.Close();
+                baglantiDurum = false;
+            }
+            else
+            {
+                MessageBox.Show("Bağlantı Zaten Kapalı");
+            }
+        }
+
+
+
         private void musteriliste_Load(object sender, EventArgs e)
         {
             Kayıtgoster();
@@ -25,11 +55,11 @@ namespace WindowsFormsApplication1
 
         private void Kayıtgoster()
         {
-            baglanti.Open();
+            BaglantiAc();
             SqlDataAdapter adtr = new SqlDataAdapter("select tc,adsoyad,tel,adres,email from kayitedilecek", baglanti);
             adtr.Fill(daset, "kayitedilecek");
             dataGridView1.DataSource = daset.Tables["kayitedilecek"];
-            baglanti.Close();
+            BaglantiKapat();
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -44,7 +74,7 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            baglanti.Open();
+            BaglantiAc();
             SqlCommand komut = new SqlCommand("update kayitedilecek set adsoyad=@AdSoyad,tel=@Tel,adres=@Adres,email=@Email where tc=@Tc ",baglanti);
             komut.Parameters.AddWithValue("@Tc", txttc.Text);
             komut.Parameters.AddWithValue("@AdSoyad", txtad.Text);
@@ -52,7 +82,7 @@ namespace WindowsFormsApplication1
             komut.Parameters.AddWithValue("@Adres", txtadres.Text);
             komut.Parameters.AddWithValue("@Email", txtemail.Text);
             komut.ExecuteNonQuery();
-            baglanti.Close();
+            BaglantiKapat();
             daset.Tables["kayitedilecek"].Clear();
             Kayıtgoster();
             MessageBox.Show("Müşteri Kaydı Güncellendi");
@@ -69,10 +99,10 @@ namespace WindowsFormsApplication1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            baglanti.Open();
+            BaglantiAc();
             SqlCommand komut = new SqlCommand("delete from kayitedilecek where tc='"+dataGridView1.CurrentRow.Cells["Tc"].Value.ToString()+"'", baglanti);
             komut.ExecuteNonQuery();
-            baglanti.Close();
+            BaglantiKapat();
             daset.Tables["kayitedilecek"].Clear();
             Kayıtgoster();
             MessageBox.Show("Kayıt Silindi");
