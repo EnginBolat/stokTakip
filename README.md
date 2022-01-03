@@ -3,8 +3,8 @@
 <p>C# ve MSSQL kullanarak hazır bir stok takip otomasyonu.Program şuanda hazır fakat optimize etmeye çalışıyoum.İlerleyen güncellemelerde Barkod okuyucu sayesinde barkodları direkt olarak ekleme özelliği gelecek.</p>
 <p>Programın çalışır halde bulunan video:https://youtu.be/8R4iVh5XwPE
  
-#Güncelleme
-  1.Program artık server bağlantısını "C:\" dizininde oluşturulan "baglanti.txt" dosyasından alıyor.Dosyanın içeriğinde sadece MSSQL bağlantı adresi var. Bir sınıf içerisinde tanımlayarak baglantı adresi oluşturma kodunun tekrarlanmasının önüne geçilmiş oluyor.
+# Güncelleme
+<p>  1.Program artık server bağlantısını "C:\" dizininde oluşturulan "baglanti.txt" dosyasından alıyor.Dosyanın içeriğinde sadece MSSQL bağlantı adresi var. Bir sınıf içerisinde tanımlayarak baglantı adresi oluşturma kodunun tekrarlanmasının önüne geçilmiş oluyor. </p>
 
 
 ## Giriş Ekranı
