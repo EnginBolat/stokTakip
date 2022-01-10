@@ -17,30 +17,31 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
         }
-
         
-        bool durum = false;
+        bool baglantiDurum = false;
         baglantiSinifi bgl = new baglantiSinifi();
         SqlConnection baglanti;
+
         void BaglantiAc()
         {
-            if (durum==false)
+            if (baglantiDurum == false)
             {
                 baglanti = new SqlConnection(bgl.baglantiAdresi);
                 baglanti.Open();
-                durum = true;
+                baglantiDurum = true;
             }
             else
             {
                 MessageBox.Show("Bağlantı Zaten Açık");
             }
         }
+        
         void BaglantiKapat()
         {
-            if (durum == true)
+            if (baglantiDurum == true)
             {
                 baglanti.Close();
-                durum = false;
+                baglantiDurum = false;
             }
             else
             {
@@ -48,23 +49,18 @@ namespace WindowsFormsApplication1
             }
         }
 
-
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked==true)
             {
                 checkBox1.Text = "Şifreyi Gizle";
-                textBox2.PasswordChar = '\0';
+                txtPassword.PasswordChar = '\0';
             }
             else
             {
                 checkBox1.Text = "Şifreyi Göster";
-                textBox2.PasswordChar = '*';
+                txtPassword.PasswordChar = '*';
             }
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            textBox2.PasswordChar = '*';
         }
         
         private void button1_Click(object sender, EventArgs e)
@@ -76,8 +72,8 @@ namespace WindowsFormsApplication1
                 try
                 {
                     string sorgu = ("select * from kayitli where kadi=@ad AND şifre=@sifre");
-                    SqlParameter prm1 = new SqlParameter("ad", textBox1.Text.Trim());
-                    SqlParameter prm2 = new SqlParameter("sifre", textBox2.Text.Trim());
+                    SqlParameter prm1 = new SqlParameter("ad", txtUsername.Text.Trim());
+                    SqlParameter prm2 = new SqlParameter("sifre", txtPassword.Text.Trim());
                     SqlCommand komut = new SqlCommand(sorgu, baglanti);
                     komut.Parameters.Add(prm1);
                     komut.Parameters.Add(prm2);
@@ -93,22 +89,22 @@ namespace WindowsFormsApplication1
                     else
                     {
                         MessageBox.Show("Hatalı Giriş");
-                        textBox1.Text = "";
-                        textBox2.Text = "";
+                        txtUsername.Text = "";
+                        txtPassword.Text = "";
                     }
                 }
                 catch (Exception)
                 {
                     MessageBox.Show("Hatalı Giriş");
-                    textBox1.Text = "";
-                    textBox2.Text = "";             
+                    txtUsername.Text = "";
+                    txtPassword.Text = "";             
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show("Sunucu İle Bağlantı Hatası");
-                textBox1.Text = "";
-                textBox2.Text = "";            
+                txtUsername.Text = "";
+                txtPassword.Text = "";            
             }
             BaglantiKapat();
 

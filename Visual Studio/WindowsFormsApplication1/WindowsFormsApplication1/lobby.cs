@@ -1,23 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 namespace WindowsFormsApplication1
 {
     public partial class lobby : Form
     {
+        public lobby()
+        {
+            InitializeComponent();
+        }
+
+        //Değişkenler ve Bağlantılar
 
         DataSet daset = new DataSet();
         bool durum;
         bool baglantiDurum = false;
         baglantiSinifi bgl = new baglantiSinifi();
         SqlConnection baglanti;
+        
         void BaglantiAc()
         {
             if (baglantiDurum == false)
@@ -36,76 +37,40 @@ namespace WindowsFormsApplication1
             if (baglantiDurum == true)
             {
                 baglanti.Close();
-                baglantiDurum= false;
+                baglantiDurum = false;
             }
             else
             {
                 MessageBox.Show("Bağlantı Zaten Kapalı");
             }
         }
-
-        public lobby()
-        {
-            InitializeComponent();
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            musteriliste gec = new musteriliste();
-            gec.Show();
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            kategori gec = new kategori();
-            gec.Show();
-        }
-
-        private void button11_Click(object sender, EventArgs e)
-        {
-            marka gec = new marka();
-            gec.Show();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            urunekle gec = new urunekle();
-            gec.Show();
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            urunlistele gec = new urunlistele();
-            gec.Show();
-        }
-
         private void lobby_Load(object sender, EventArgs e)
         {
-            sepetliste();
-            hesapla();
+            sepetListe();
+            Hesapla();
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
         }
-
-        private void sepetliste()
+        private void sepetListe()
         {
             SqlConnection baglanti = new SqlConnection(bgl.baglantiAdresi);
             BaglantiAc();
-            SqlDataAdapter adtr = new SqlDataAdapter("select * from sepet",baglanti);
-            adtr.Fill(daset,"sepet");
+            SqlDataAdapter adtr = new SqlDataAdapter("select * from sepet", baglanti);
+            adtr.Fill(daset, "sepet");
             dataGridView1.DataSource = daset.Tables["sepet"];
             dataGridView1.Columns[0].Visible = false;
             dataGridView1.Columns[1].Visible = false;
             dataGridView1.Columns[2].Visible = false;
-            BaglantiKapat();            
+            BaglantiKapat();
         }
-
         private void txttc_TextChanged(object sender, EventArgs e)
         {
-            if (txttc.Text=="")
+            if (txttc.Text == "")
             {
                 txtad.Text = "";
                 txttel.Text = "";
             }
             BaglantiAc();
-            SqlCommand komut = new SqlCommand("select * from kayitedilecek where tc like '"+txttc.Text+"'",baglanti);
+            SqlCommand komut = new SqlCommand("select * from kayitedilecek where tc like '" + txttc.Text + "'", baglanti);
             SqlDataReader read = komut.ExecuteReader();
             while (read.Read())
             {
@@ -114,10 +79,9 @@ namespace WindowsFormsApplication1
             }
             BaglantiKapat();
         }
-
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
-            temizle();
+            Temizle();
             BaglantiAc();
             SqlCommand komut = new SqlCommand("select * from urun where barkodno like '" + txtkod.Text + "'", baglanti);
             SqlDataReader read = komut.ExecuteReader();
@@ -128,7 +92,7 @@ namespace WindowsFormsApplication1
             }
             BaglantiKapat();
         }
-        private void temizle()
+        private void Temizle()
         {
             if (txtkod.Text == "")
             {
@@ -145,40 +109,6 @@ namespace WindowsFormsApplication1
                 }
             }
         }
-        private void button7_Click(object sender, EventArgs e)
-        {
-                BaglantiAc();
-                SqlCommand komut = new SqlCommand("insert into sepet (tc,adsoyad,telefon,barkodno,urunadi,miktari,satisfiyati,toplamfiyat,tarih) values (@tc,@adsoyad,@telefon,@barkodno,@urunadi,@miktari,@satisfiyati,@toplamfiyat,@tarih)", baglanti);
-                komut.Parameters.AddWithValue("@tc", txttc.Text);
-                komut.Parameters.AddWithValue("@adsoyad", txtad.Text);
-                komut.Parameters.AddWithValue("@telefon", txttel.Text);
-                komut.Parameters.AddWithValue("@barkodno", txtkod.Text);
-                komut.Parameters.AddWithValue("@urunadi", txturunad.Text);
-                komut.Parameters.AddWithValue("@miktari", int.Parse(txtmiktar.Text));
-                komut.Parameters.AddWithValue("@satisfiyati", double.Parse(txtsatisfiyati.Text));
-                komut.Parameters.AddWithValue("@toplamfiyat", double.Parse(txttplfiyat.Text));
-                komut.Parameters.AddWithValue("@tarih", DateTime.Now.ToString());
-                komut.ExecuteNonQuery();
-                SqlCommand komutt = new SqlCommand("select sum(toplamfiyat) from sepet", baglanti);
-                label9.Text = komutt.ExecuteScalar() + "TL";
-                BaglantiKapat();              
-            txtmiktar.Text = "1";
-            daset.Tables["sepet"].Clear();
-            sepetliste();
-            
-            foreach (Control item in groupBox2.Controls)
-            {
-                if (item is TextBox)
-                {
-                    if (item != txtmiktar)
-                    {
-                        item.Text = "";
-                    }
-                }
-
-            }
-            
-        }
         private void txtmiktar_TextChanged(object sender, EventArgs e)
         {
             try
@@ -189,49 +119,12 @@ namespace WindowsFormsApplication1
             {
             }
         }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-                        BaglantiAc();
-            SqlCommand komut = new SqlCommand("delete from sepet where barkodno='"+dataGridView1.CurrentRow.Cells["barkodno"].Value.ToString()+"'", baglanti);
-            komut.ExecuteNonQuery();
-
-            hesapla();
-
-            BaglantiKapat();
-            MessageBox.Show("Ürün Sepetten Çıkarıldı");
-            daset.Tables["sepet"].Clear();
-            sepetliste();
-           
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            BaglantiAc();
-            SqlCommand komut = new SqlCommand("delete from sepet" ,baglanti);
-            komut.ExecuteNonQuery();
-
-            label9.Text = "0TL";
-
-            BaglantiKapat();
-            MessageBox.Show("Satış İptal Edildi");
-            daset.Tables["sepet"].Clear();
-            sepetliste();
-            
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            satislistele gec = new satislistele();
-            gec.Show();
-        }
-
-        private void hesapla()
+        private void Hesapla()
         {
             try
             {
                 BaglantiAc();
-                SqlCommand komut = new SqlCommand("select sum(toplamfiyat) from sepet",baglanti);
+                SqlCommand komut = new SqlCommand("select sum(toplamfiyat) from sepet", baglanti);
                 label9.Text = komut.ExecuteScalar() + "TL";
                 BaglantiKapat();
             }
@@ -239,10 +132,81 @@ namespace WindowsFormsApplication1
             {
             }
         }
-
-        private void button8_Click(object sender, EventArgs e)
+        private void barkodKontrol()
         {
-            for (int i = 0; i < dataGridView1.Rows.Count-1; i++)
+            BaglantiAc();
+            SqlCommand komut = new SqlCommand("select * from sepet ", baglanti);
+            SqlDataReader read = komut.ExecuteReader();
+            while (read.Read())
+            {
+                if (txtkod.Text == read["barkodno"].ToString())
+                {
+                    durum = false;
+                }
+            }
+            BaglantiKapat();
+        }
+        private void btnMusteriEkle_Click(object sender, EventArgs e)
+        {
+            musteriEkle gec = new musteriEkle();
+            gec.Show();
+        }
+        private void btnMusteriListele_Click(object sender, EventArgs e)
+        {
+            musteriListele gec = new musteriListele();
+            gec.Show();
+        }
+        private void btnKategoriEkle_Click(object sender, EventArgs e)
+        {
+            kategoriEkle gec = new kategoriEkle();
+            gec.Show();
+        }
+        private void btnMarkaEkle_Click(object sender, EventArgs e)
+        {
+            markaEkle gec = new markaEkle();
+            gec.Show();
+        }
+        private void btnUrunEkle_Click(object sender, EventArgs e)
+        {
+            urunEkle gec = new urunEkle();
+            gec.Show();
+        }
+        private void btnUrunListele_Click(object sender, EventArgs e)
+        {
+            urunListele gec = new urunListele();
+            gec.Show();
+        }
+        private void btnSatisListele_Click(object sender, EventArgs e)
+        {
+            satisListele gec = new satisListele();
+            gec.Show();
+        }
+        private void btnSil_Click(object sender, EventArgs e)
+        {
+
+            BaglantiAc();
+            SqlCommand komut = new SqlCommand("delete from sepet where barkodno='" + dataGridView1.CurrentRow.Cells["barkodno"].Value.ToString() + "'", baglanti);
+            komut.ExecuteNonQuery();
+            Hesapla();
+            BaglantiKapat();
+            MessageBox.Show("Ürün Sepetten Çıkarıldı");
+            daset.Tables["sepet"].Clear();
+            sepetListe();
+        }
+        private void btnSatisİptal_Click(object sender, EventArgs e)
+        {
+            BaglantiAc();
+            SqlCommand komut = new SqlCommand("delete from sepet", baglanti);
+            komut.ExecuteNonQuery();
+            label9.Text = "0TL";
+            BaglantiKapat();
+            MessageBox.Show("Satış İptal Edildi");
+            daset.Tables["sepet"].Clear();
+            sepetListe();
+        }
+        private void btnSatisYap_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
             {
                 BaglantiAc();
                 SqlCommand komut2 = new SqlCommand("insert into satis (tc,adsoyad,telefon,barkodno,urunadi,miktari,satisfiyati,toplamfiyat,tarih) values (@tc,@adsoyad,@telefon,@barkodno,@urunadi,@miktari,@satisfiyati,@toplamfiyat,@tarih)", baglanti);
@@ -255,46 +219,50 @@ namespace WindowsFormsApplication1
                 komut2.Parameters.AddWithValue("@satisfiyati", double.Parse(dataGridView1.Rows[i].Cells["satisfiyati"].Value.ToString()));
                 komut2.Parameters.AddWithValue("@toplamfiyat", double.Parse(dataGridView1.Rows[i].Cells["toplamfiyat"].Value.ToString()));
                 komut2.Parameters.AddWithValue("@tarih", DateTime.Now.ToString());
-                komut2.ExecuteNonQuery();          
+                komut2.ExecuteNonQuery();
                 SqlCommand komut3 = new SqlCommand("update urun set miktari=miktari-'" + int.Parse(dataGridView1.Rows[i].Cells["miktari"].Value.ToString()) + "'where barkodno='" + dataGridView1.Rows[i].Cells["barkodno"].Value.ToString() + "'", baglanti);
                 komut3.ExecuteNonQuery();
                 BaglantiKapat();
-                
-
             }
             BaglantiAc();
             SqlCommand komutt = new SqlCommand("delete from sepet", baglanti);
             komutt.ExecuteNonQuery();
             BaglantiKapat();
             daset.Tables["sepet"].Clear();
-            sepetliste();
-                hesapla();
+            sepetListe();
+            Hesapla();
         }
-
-        private void barkodkontrol()
+        private void btnEkle_Click(object sender, EventArgs e)
         {
             BaglantiAc();
-            SqlCommand komut = new SqlCommand("select * from sepet ",baglanti);
-            SqlDataReader read = komut.ExecuteReader();
-            while (read.Read())
-            {
-                if (txtkod.Text == read["barkodno"].ToString())
-                {
-                    durum = false;
-                }
-            }
+            SqlCommand komut = new SqlCommand("insert into sepet (tc,adsoyad,telefon,barkodno,urunadi,miktari,satisfiyati,toplamfiyat,tarih) values (@tc,@adsoyad,@telefon,@barkodno,@urunadi,@miktari,@satisfiyati,@toplamfiyat,@tarih)", baglanti);
+            komut.Parameters.AddWithValue("@tc", txttc.Text);
+            komut.Parameters.AddWithValue("@adsoyad", txtad.Text);
+            komut.Parameters.AddWithValue("@telefon", txttel.Text);
+            komut.Parameters.AddWithValue("@barkodno", txtkod.Text);
+            komut.Parameters.AddWithValue("@urunadi", txturunad.Text);
+            komut.Parameters.AddWithValue("@miktari", int.Parse(txtmiktar.Text));
+            komut.Parameters.AddWithValue("@satisfiyati", double.Parse(txtsatisfiyati.Text));
+            komut.Parameters.AddWithValue("@toplamfiyat", double.Parse(txttplfiyat.Text));
+            komut.Parameters.AddWithValue("@tarih", DateTime.Now.ToString());
+            komut.ExecuteNonQuery();
+            SqlCommand komutt = new SqlCommand("select sum(toplamfiyat) from sepet", baglanti);
+            label9.Text = komutt.ExecuteScalar() + "TL";
             BaglantiKapat();
-        }
+            txtmiktar.Text = "1";
+            daset.Tables["sepet"].Clear();
+            sepetListe();
+            foreach (Control item in groupBox2.Controls)
+            {
+                if (item is TextBox)
+                {
+                    if (item != txtmiktar)
+                    {
+                        item.Text = "";
+                    }
+                }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            Musteriekle gec = new Musteriekle();
-            gec.Show();
-        }
-
-        private void groupBox3_Enter(object sender, EventArgs e)
-        {
-
+            }
         }
     }
-    }
+}

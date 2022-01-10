@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StokTakip", "WindowsFormsApplication1\StokTakip.csproj", "{8ADA7C8D-7DDB-4D81-8047-C73819FC8FF6}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{05B0859B-5C57-4FD4-AE09-311CCA311AC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,8 @@ Global
 		{8ADA7C8D-7DDB-4D81-8047-C73819FC8FF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ADA7C8D-7DDB-4D81-8047-C73819FC8FF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ADA7C8D-7DDB-4D81-8047-C73819FC8FF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05B0859B-5C57-4FD4-AE09-311CCA311AC4}.Debug|Any CPU.ActiveCfg = Debug
+		{05B0859B-5C57-4FD4-AE09-311CCA311AC4}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

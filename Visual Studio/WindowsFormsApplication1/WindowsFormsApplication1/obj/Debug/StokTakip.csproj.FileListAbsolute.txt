@@ -4,11 +4,8 @@ C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1
 C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\StokTakip.csproj.AssemblyReference.cache
 C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\StokTakip.csproj.SuggestedBindingRedirects.cache
 C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.girisEkrani.resources
-C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.kategori.resources
 C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.lobby.resources
-C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.marka.resources
 C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Musteriekle.resources
-C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.musteriliste.resources
 C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
 C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.satislistele.resources
 C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.urunekle.resources
@@ -17,3 +14,6 @@ C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1
 C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\StokTakip.csproj.CoreCompileInputs.cache
 C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.kategoriEkle.resources
+C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.markaEkle.resources
+C:\Users\engib\Desktop\Stok Takip Güncel\Visual Studio\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.musteriListele.resources
