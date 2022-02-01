@@ -1,6 +1,5 @@
 # Stok Takip Programı
 
-<p>C# ve MSSQL kullanarak hazır bir stok takip otomasyonu.Program şuanda hazır fakat optimize etmeye çalışıyoum.İlerleyen güncellemelerde Barkod okuyucu sayesinde barkodları direkt olarak ekleme özelliği gelecek.</p>
 <p>Programın çalışır halde bulunan video:https://youtu.be/8R4iVh5XwPE
  
 # Güncelleme
